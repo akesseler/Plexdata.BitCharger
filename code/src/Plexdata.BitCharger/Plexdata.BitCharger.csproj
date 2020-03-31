@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Plexdata.Converters</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>plexdata.de</Authors>
     <Company>plexdata.de</Company>
     <Copyright>Copyright © 2020 - plexdata.de</Copyright>
@@ -31,6 +31,7 @@
     <OutputPath>bin\Release</OutputPath>
     <DocumentationFile>bin\Release\netstandard2.0\Plexdata.BitCharger.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
   </PropertyGroup>
   
   <ItemGroup>
@@ -40,5 +41,9 @@
     </None>
     <None Include="..\..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
   </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="&quot;$(SolutionDir)post-build.cmd&quot; &quot;$(SolutionDir)..\hlp\&quot; $(ConfigurationName) &quot;$(SolutionDir)..\hlp\help\*.chm&quot; &quot;$(TargetDir)&quot;" />
+  </Target>
 
 </Project>
